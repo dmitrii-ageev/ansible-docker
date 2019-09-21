@@ -1,12 +1,17 @@
 ---
-- name: Remove service files and directories
+- name: Remove service files
   file:
     path: "{{ item }}"
     state: absent
   loop:
     - "{{ docker__system_unit_file }}"
     - "{{ docker__system_config_file }}"
-    - "{{ docker__directories }}"
+
+- name: Remove service directories
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ docker__directories }}"
 
 - name: Uninstall service packages
   yum:
@@ -23,11 +28,12 @@
     name: "{{ docker__user }}"
     state: absent
     remove: true
+  when: docker__user != 'root'
 
 - name: Remove the daemon group
   group:
     name: "{{ docker__group }}"
-    state: absent
+  when: docker__group != 'root'
 
 - name: Remove the UNIX socket group
   group:
