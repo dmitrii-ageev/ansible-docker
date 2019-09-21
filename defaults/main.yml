@@ -5,7 +5,7 @@ docker__state: present
 # Service, daemon, options and description
 docker__service: "docker"
 docker__daemon:  "dockerd"
-docker__daemon_options: "--pidfile {{ docker__pid_file }}"
+docker__daemon_options: "--pidfile {{ docker__pid_file }} --data-root {{ docker__data_dir }}"
 
 # User and group
 docker__user:  "root"
@@ -25,12 +25,12 @@ docker__var_dir:        "{{ docker__root_dir }}/var"
 docker__var_lib_dir:    "{{ docker__var_dir }}/lib"
 docker__run_dir:        "{{ docker__root_dir }}/run/{{ docker__service }}"
 docker__config_dir:     "{{ docker__etc_dir }}/{{ docker__service }}"
-docker__files_dir:      "{{ docker__var_lib_dir }}/{{ docker__service }}"
+docker__data_dir:       "{{ docker__var_lib_dir }}/{{ docker__service }}"
 
 docker__directories:
   - "{{ docker__config_dir }}"
   - "{{ docker__run_dir }}"
-  - "{{ docker__files_dir }}"
+  - "{{ docker__data_dir }}"
 
 # Files
 docker__daemon_file:        "{{ docker__usr_bin_dir }}/{{ docker__daemon }}"
