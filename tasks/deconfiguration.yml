@@ -1,5 +1,5 @@
 ---
-- name: "Delete the configuration file"
+- name: "Delete the service configuration file"
   file:
     path: "{{ docker__config_file }}"
     state: absent

@@ -1,5 +1,5 @@
 ---
-- name: "Create the system configuration file"
+- name: "Create the service configuration file"
   copy:
     content: "{{ docker__configuration | to_nice_json(indent=4) }}"
     dest: "{{ docker__config_file }}"
