@@ -1,0 +1,4 @@
+# {{ docker__daemon }} process options
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+OPTIONS="{{ docker__daemon_options }}"

@@ -1,0 +1,6 @@
+---
+- name: "Delete the configuration file"
+  file:
+    path: "{{ docker__conf_file }}"
+    state: absent
+...

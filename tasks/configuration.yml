@@ -1,0 +1,10 @@
+---
+- name: "Create the system configuration file"
+  copy:
+    content: "{{ docker__configuration | to_nice_json(indent=4) }}"
+    dest: "{{ docker__conf_file }}"
+    owner: "{{ docker__user }}"
+    group: "{{ docker__group }}"
+    mode: "{{ docker__file_mode }}"
+  notify: Restart docker service
+...

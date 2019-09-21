@@ -1,0 +1,69 @@
+---
+- name: Create a UNIX socket group
+  group:
+    name: "{{ docker__socket_group }}"
+    system: true
+  notify: Restart docker service
+  when: docker__socket_group != docker__group
+
+- name: Create a daemon group
+  group:
+    name: "{{ docker__group }}"
+    system: true
+  notify: Restart docker service
+
+- name: Create a daemon user
+  user:
+    name: "{{ docker__user }}"
+    group: "{{ docker__group }}"
+    system: true
+  notify: Restart docker service
+
+- name: Add a docker repository
+  yum_repository:
+    name: "{{ docker__repository.name }}"
+    description: "{{ docker__repository.description }}"
+    baseurl: "{{ docker__repository.baseurl }}"
+    gpgkey: "{{ docker__repository.gpgkey }}"
+    gpgcheck: true
+    enabled: true
+    state: present
+
+- name: Install service packages
+  yum:
+    name: "{{ docker__packages }}"
+    state: present
+    update_cache: true
+  notify: Restart docker service
+
+- name: Create service directories
+  file:
+    path: "{{ item }}"
+    owner: "{{ docker__user }}"
+    group: "{{ docker__group }}"
+    mode: "{{ docker__dir_mode }}"
+    state: directory
+  loop: "{{ docker__directories }}"
+  notify: Restart docker service
+
+- name: Create the system configuration file
+  template:
+    src: "{{ docker__system_config_file | regex_replace('^.', '') }}"
+    dest: "{{ docker__system_config_file }}"
+    mode: "{{ docker__file_mode }}"
+  register: docker__system_configuration
+  notify: Restart docker service
+
+- name: Create the system unit file
+  template:
+    src: "{{ docker__system_unit_file | regex_replace('^.', '') }}"
+    dest: "{{ docker__system_unit_file }}"
+    mode: "{{ docker__file_mode }}"
+  register: docker__system_unit
+  notify: Restart docker service
+
+- name: Reload systemd settings
+  systemd:
+    daemon_reload: true
+  when: docker__system_configuration.changed or docker__system_unit.changed
+...

@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: dmitrii-ageev.docker
+      docker__daemon_options: "--dns 1.1.1.1"
+      docker__configuration:
+        debug: true

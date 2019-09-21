@@ -1,0 +1,10 @@
+---
+- name: Restart docker service
+  systemd:
+    name: "{{ docker__service }}"
+    state: restarted
+  register: docker__service_restarted
+  when:
+    - docker__service_restarted is undefined
+    - not docker__service_started.changed | default(false)
+...
