@@ -37,7 +37,7 @@ docker__system_unit_file:   "{{ docker__etc_dir }}/systemd/system/{{ docker__ser
 docker__pid_file:           "{{ docker__run_dir }}/{{ docker__service }}.pid"
 
 # Repository
-docker__reporitory:
+docker__repository:
   name: docker-ce-stable
   baseurl: https://download.docker.com/linux/centos/9/$basearch/stable
   gpgkey: https://download.docker.com/linux/centos/gpg
