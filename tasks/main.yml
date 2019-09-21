@@ -5,7 +5,9 @@
     - include_tasks: install.yml
     - include_tasks: configuration.yml
     - include_tasks: start.yml
-  when: docker__state == "present"
+  when:
+    - docker__state == "present"
+    - docker__skip_installation is undefined
 
 - block:
     - include_tasks: stop.yml

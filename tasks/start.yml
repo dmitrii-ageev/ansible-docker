@@ -5,4 +5,8 @@
     enabled: true
     state: started
   register: docker__service_started
+
+- name: Set logrotate__installed flag
+  set_fact:
+    docker__skip_installation: true
 ...
