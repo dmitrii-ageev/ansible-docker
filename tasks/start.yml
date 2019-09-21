@@ -1,7 +1,7 @@
 ---
 - name: Start the service and enable it
   systemd:
-    name: "{{ docker__service_name }}"
+    name: "{{ docker__service }}.service"
     enabled: true
     state: started
   register: docker__service_started

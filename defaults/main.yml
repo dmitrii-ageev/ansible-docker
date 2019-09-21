@@ -22,24 +22,27 @@ docker__etc_dir:        "{{ docker__root_dir }}/etc"
 docker__usr_dir:        "{{ docker__root_dir }}/usr"
 docker__usr_bin_dir:    "{{ docker__usr_dir }}/bin"
 docker__var_dir:        "{{ docker__root_dir }}/var"
+docker__var_lib_dir:    "{{ docker__var_dir }}/lib"
 docker__run_dir:        "{{ docker__root_dir }}/run/{{ docker__service }}"
 docker__config_dir:     "{{ docker__etc_dir }}/{{ docker__service }}"
+docker__files_dir:      "{{ docker__var_lib_dir }}/{{ docker__service }}"
 
 docker__directories:
   - "{{ docker__config_dir }}"
   - "{{ docker__run_dir }}"
+  - "{{ docker__files_dir }}"
 
 # Files
 docker__daemon_file:        "{{ docker__usr_bin_dir }}/{{ docker__daemon }}"
 docker__config_file:        "{{ docker__config_dir }}/daemon.json"
-docker__system_config_file: "{{ docker__etc_dir }}/sysconfigig/{{ docker__service }}"
+docker__system_config_file: "{{ docker__etc_dir }}/sysconfig/{{ docker__service }}"
 docker__system_unit_file:   "{{ docker__etc_dir }}/systemd/system/{{ docker__service }}.service"
 docker__pid_file:           "{{ docker__run_dir }}/{{ docker__service }}.pid"
 
 # Repository
 docker__repository:
   name: docker-ce-stable
-  baseurl: https://download.docker.com/linux/centos/9/$basearch/stable
+  baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
   gpgkey: https://download.docker.com/linux/centos/gpg
   description: Docker CE Stable - $basearch
 

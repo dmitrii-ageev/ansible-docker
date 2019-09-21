@@ -9,7 +9,7 @@ Requires=docker.socket
 [Service]
 Type=notify
 MAINPID={{ docker__pid_file }}
-EnvironmentFile=-{{ docker__system_environment_file }}
+EnvironmentFile=-{{ docker__system_config_file }}
 ExecStartPre=/bin/rm -f {{ docker__pid_file }}
 ExecStart={{ docker__daemon_file }} $OPTIONS
 ExecReload=/bin/kill -s HUP $MAINPID

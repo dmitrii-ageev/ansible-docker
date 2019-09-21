@@ -1,7 +1,7 @@
 ---
 - name: Disable the service and stop it
   systemd:
-    name: "{{ docker__service_name }}"
+    name: "{{ docker__service_name }}.service"
     enabled: false
     state: stopped
   failed_when: false

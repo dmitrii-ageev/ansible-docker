@@ -35,7 +35,7 @@ def test_package(host):
 
 def test_configuration(host):
     # Configuration file must be in place
-    configuration = host.file('/etc/docker/docker.json')
+    configuration = host.file('/etc/docker/daemon.json')
     assert configuration.exists, 'The configuration file should exists.'
     assert configuration.user == 'root'
     assert configuration.group == 'root'

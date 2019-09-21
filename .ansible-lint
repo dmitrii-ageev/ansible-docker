@@ -1,4 +1,4 @@
 skip_list:
-  - '701'
+  - 503
 use_default_rules: true
 verbosity: 1
